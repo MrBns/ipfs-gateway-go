@@ -40,15 +40,23 @@ if it is base64 then it will decode base64 and return decoded version.
 */
 func CheckIpfsUrlAndParse(ipfsUrlOrBase64 string) (string, error) {
 
+	var decodedStr string = ipfsUrlOrBase64
+
 	if !strings.HasPrefix(ipfsUrlOrBase64, "ipfs://") {
-		data, err := base64.StdEncoding.DecodeString(ipfsUrlOrBase64)
+
+		dcoded, err := base64.StdEncoding.DecodeString(ipfsUrlOrBase64)
 		if err != nil {
 			return "", err
-		} else if ipfsUrlOrBase64 = string(data); !strings.HasPrefix(ipfsUrlOrBase64, "ipfs://") {
+		}
+
+		decodedStr = string(dcoded)
+
+		if !strings.HasPrefix(decodedStr, "ipfs://") {
 			return "", fmt.Errorf("only valid ipfs url is supported or base64 encoded string of ipfs url")
 		}
+
 	}
-	return ipfsUrlOrBase64, nil
+	return decodedStr, nil
 }
 
 /*
