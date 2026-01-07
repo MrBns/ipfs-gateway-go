@@ -8,6 +8,7 @@ const (
 	Gateway_HashpackBcdn GatewayNamesType = "hashpack-bcdn"
 	Gateway_NftStorage   GatewayNamesType = "nftstorage"
 	Gateway_IpfsIo       GatewayNamesType = "ipfs.io"
+	Gateway_Filebase     GatewayNamesType = "filebase"
 )
 
 var GatewayNamesArray = [5]GatewayNamesType{Gateway_HashpackBcdn, Gateway_IpfsIo, Gateway_LightHouse, Gateway_NftStorage, Gateway_SentX}
@@ -19,17 +20,20 @@ Available gateways
   - nftstorage
   - ipfs.io
   - lighthouse
+  - filebase
 */
 func GetGatewayByName(gateway_name GatewayNamesType) IPFS_Gateway {
 	switch gateway_name {
-	case "lighthouse":
+	case Gateway_LightHouse:
 		return NewLightHousGateway()
-	case "sentx-bcdn":
+	case Gateway_SentX:
 		return NewSentxBCdnGateway()
-	case "nftstorage":
+	case Gateway_NftStorage:
 		return NewNftStorageGateway()
-	case "ipfs.io":
+	case Gateway_IpfsIo:
 		return NewIpfsIoGateway()
+	case Gateway_Filebase:
+		return NewFilebaseGateway()
 	default:
 		return NewHashpackBcdnGateway()
 	}

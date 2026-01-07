@@ -17,35 +17,36 @@ strategy.
 */
 func GetResponse_Must(url string) (*http.Response, error) {
 
-	cid, err := CheckIpfsUrlAndParse(url)
+	cid, err := IsValidIpfsUrlAndParse(url)
 
 	if err != nil {
 		return nil, err
 	}
 
-	// 1st: lighthouse
+	// 1st: filebase
+	filebaseIpfsResponse, err := GetResponseByGatewayName(cid, Gateway_Filebase)
+	if err == nil {
+		return filebaseIpfsResponse, nil
+	}
+
+	// 2nd: lighthouse;
 	lightHouseResponse, err := GetResponseByGatewayName(cid, Gateway_LightHouse)
 	if err == nil {
 		return lightHouseResponse, nil
 	}
 
-	// 2nd: hashpack-bcdn
+	// 3rd: hashpack-bcdn
 	hashpackBcdnResponse, err := GetResponseByGatewayName(cid, Gateway_HashpackBcdn)
 	if err == nil {
 		return hashpackBcdnResponse, nil
 	}
 
-	// 3rd: Sentx-Bcdn
+	// 4th: Sentx-Bcdn
 	sentxBcdnReponse, err := GetResponseByGatewayName(cid, Gateway_SentX)
 	if err == nil {
 		return sentxBcdnReponse, nil
 	}
 
-	// 4th: NFTStorage.link
-	nftstorageResponse, err := GetResponseByGatewayName(cid, Gateway_NftStorage)
-	if err == nil {
-		return nftstorageResponse, nil
-	}
 	// 5th: IPFS.io gateway
 	ipfsIoResponse, err := GetResponseByGatewayName(cid, Gateway_IpfsIo)
 	if err == nil {

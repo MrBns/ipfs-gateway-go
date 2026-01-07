@@ -8,7 +8,7 @@ import (
 )
 
 // detect if []byte type is a valid text type. using http.DetectContentType()
-func IsValidTextType(data []byte) (bool, string) {
+func DetectIfContentTextType(data []byte) (bool, string) {
 
 	mimetype := http.DetectContentType(data)
 
@@ -38,7 +38,7 @@ func IsValidTextType(data []byte) (bool, string) {
 It check either input is ipfs url or base64.
 if it is base64 then it will decode base64 and return decoded version.
 */
-func CheckIpfsUrlAndParse(ipfsUrlOrBase64 string) (string, error) {
+func IsValidIpfsUrlAndParse(ipfsUrlOrBase64 string) (string, error) {
 
 	var decodedStr string = ipfsUrlOrBase64
 

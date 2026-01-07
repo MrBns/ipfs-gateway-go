@@ -105,3 +105,17 @@ func NewIpfsIoGateway() *ipfsIOGateway {
 		},
 	}
 }
+
+/*
+IPFS Exclusive
+
+baseurl: https://ipfs.filebase.io/ipfs
+*/
+func NewFilebaseGateway() *ipfsIOGateway {
+	return &ipfsIOGateway{
+		baseGateway{
+			isSubDomain: false,
+			gatewayUrl:  "ipfs.filebase.io/ipfs",
+		},
+	}
+}
